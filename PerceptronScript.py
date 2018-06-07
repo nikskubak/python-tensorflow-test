@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os
+from datetime import datetime
 
 import matplotlib.pyplot as plt
 import tensorflow as tf
@@ -59,7 +60,7 @@ train_loss_results = []
 train_accuracy_results = []
 
 num_epochs = 201
-
+startLearning = datetime.utcnow()
 for epoch in range(num_epochs):
     epoch_loss_avg = tfe.metrics.Mean()
     epoch_accuracy = tfe.metrics.Accuracy()
@@ -84,7 +85,8 @@ for epoch in range(num_epochs):
         print("Epoch {:03d}: Loss: {:.3f}, Accuracy: {:.3%}".format(epoch,
                                                                     epoch_loss_avg.result(),
                                                                     epoch_accuracy.result()))
-
+finishLearning = datetime.utcnow()
+print("Learning time", finishLearning - startLearning)
 fig, axes = plt.subplots(2, sharex=True, figsize=(12, 8))
 fig.suptitle('Training Metrics')
 axes[0].set_ylabel("Loss", fontsize=14)
